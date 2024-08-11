@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
                       (alarm) => alarm.id == id,
                       orElse: () => ObservableAlarm());
 
-                  mediaHandler.playMusic(alarm);
+                   mediaHandler.playMusic(alarm);
                   Wakelock.enable();
 
                   return Scaffold(body: AlarmView(alarm: alarm));

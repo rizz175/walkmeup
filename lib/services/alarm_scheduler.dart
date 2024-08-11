@@ -4,6 +4,7 @@ import 'dart:io';
 // import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:bringtoforeground/bringtoforeground.dart';
+import 'package:clockee/utils/schedule_notifications.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:clockee/services/file_proxy.dart';
@@ -54,6 +55,7 @@ class AlarmScheduler {
 
         print("targetDateTime ${targetDateTime.toString()}");
         await newShot(targetDateTime, scheduleId + i);
+
       }
     }
   }
@@ -132,7 +134,6 @@ class AlarmScheduler {
       ticker: 'ticker',
       title: '$hours:$minutes',
       body: alarm.name,
-      sound: RawResourceAndroidNotificationSound(''),
       payload: id.toString(),
     );
   }

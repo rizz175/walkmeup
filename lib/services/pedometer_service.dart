@@ -1,63 +1,8 @@
-// pedometer_provider.dart
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:pedometer/pedometer.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
-
-// class PedometerProvider with ChangeNotifier {
-//   int _steps = 0;
-//   final int _requiredSteps = 5;
-//   String _status = 'Unknown';
-//
-//   int get steps => _steps;
-//   int get requiredSteps => _requiredSteps;
-//   String get status => _status;
-//
-//   PedometerProvider() {
-//     _initPedometer();
-//   }
-//
-//   Future<void> _initPedometer() async {
-//     bool granted = await _checkActivityRecognitionPermission();
-//     if (!granted) {
-//       _status = 'Activity recognition permission not granted.';
-//       notifyListeners();
-//       return;
-//     }
-//
-//     // Initialize Pedometer streams
-//     Pedometer.stepCountStream.listen((event) {
-//       _steps = event.steps;
-//       notifyListeners();
-//     }).onError((error) {
-//       _status = 'Step Count Error: $error';
-//       notifyListeners();
-//     });
-//
-//     Pedometer.pedestrianStatusStream.listen((event) {
-//       _status = event.status;
-//       notifyListeners();
-//     }).onError((error) {
-//       _status = 'Pedestrian Status Error: $error';
-//       notifyListeners();
-//     });
-//   }
-//
-//   Future<bool> _checkActivityRecognitionPermission() async {
-//     bool granted = await Permission.activityRecognition.isGranted;
-//
-//     if (!granted) {
-//       granted = await Permission.activityRecognition.request() ==
-//           PermissionStatus.granted;
-//     }
-//
-//     return granted;
-//   }
-// }
+import 'dart:async';
 
 class PedometerProvider extends ChangeNotifier {
   static const int minDecrement = 5;
@@ -66,7 +11,7 @@ class PedometerProvider extends ChangeNotifier {
   static const double noise = 0.3;
   static const double defaultMaxDelta = 7.0;
 
-   int? maxSteps;
+  int? maxSteps;
   int stepCount = 0;
   double? maxDelta;
   double? minAccel;
@@ -158,6 +103,7 @@ class PedometerProvider extends ChangeNotifier {
     if (stepCount > maxSteps!) {
       stepCount = maxSteps!;
     }
+    print('Step taken: $stepCount'); // Print the step count on each step
     notifyListeners();
   }
 

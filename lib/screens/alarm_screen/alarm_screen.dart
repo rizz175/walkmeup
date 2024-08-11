@@ -43,7 +43,11 @@ class AlarmView extends StatelessWidget {
         int steps = pedometerProvider.stepCount;
         int requiredSteps = pedometerProvider
             .getRemainingSteps(); // Example value; adjust as necessary
+int stepAre=steps;
 
+        if(stepAre==15){
+  dismissCurrentAlarm();
+}
         return Stack(
           children: [
             Container(
@@ -113,7 +117,7 @@ class AlarmView extends StatelessWidget {
                           ),
                           radiusFactor: .65,
                           minimum: 0,
-                          maximum: requiredSteps.toDouble(),
+                          maximum: 15,
                           showLabels: false,
                           pointers: <GaugePointer>[
                             RangePointer(
@@ -140,9 +144,9 @@ class AlarmView extends StatelessWidget {
                                       ),
                                       Widgets.heightSpaceH1,
                                       Text(
-                                        "${requiredSteps - steps}",
+                                        stepAre<16?"$stepAre/15":"0/15",
                                         style: TextStyle(
-                                            fontSize: 80,
+                                            fontSize: 50,
                                             fontWeight: FontWeight.w900,
                                             color: Colors.white),
                                       ),
@@ -220,6 +224,7 @@ class AlarmView extends StatelessWidget {
   Future<void> dismissCurrentAlarm() async {
 
     Wakelock.disable();
+    mediaHandler.stopMusic();
 
     AlarmStatus().isAlarm = false;
     AlarmStatus().alarmId = -1;
